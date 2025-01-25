@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "277488037785",
+    "project_id": "remote-terminal-unit",
+    "storage_bucket": "remote-terminal-unit.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:277488037785:android:a1e278ac0a96b84678ed08",
+        "android_client_info": {
+          "package_name": "com.example.weather"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9yIYfyvOO6kRluMCyjxvG9rpEwZVKVQQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
