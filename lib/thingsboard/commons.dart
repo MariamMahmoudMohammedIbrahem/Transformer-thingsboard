@@ -9,7 +9,6 @@ export 'package:weather/thingsboard/screens/navigation/bottom_navigation_bar.dar
 export 'constants.dart';
 export 'services/thingsboard_client.dart';
 export 'screens/users_screen.dart';
-export 'screens/settings.dart';
 export 'package:auto_size_text/auto_size_text.dart';
 export 'package:fl_chart/fl_chart.dart';
 
@@ -31,8 +30,8 @@ export 'package:weather/firebase_options.dart';
 export 'package:weather/thingsboard/styles/themes.dart';
 
 export 'package:weather/thingsboard/screens/dashboard/dashboard_screen.dart';
-export 'package:weather/thingsboard/screens/history/history_screen.dart';
-export 'package:weather/thingsboard/screens/realtime/realtime_screen.dart';
+export 'package:weather/thingsboard/screens/realtime_graph/realtime_graph_screen.dart';
+export 'package:weather/thingsboard/screens/realtime_latest_values/realtime_screen.dart';
 export 'package:weather/thingsboard/screens/settings/settings_screen.dart';
 export 'package:weather/thingsboard/screens/sign_in/sign_in_screen.dart';
 
@@ -44,5 +43,8 @@ export 'screens/internet_connection/internet_connection_screen.dart';
 export 'package:connectivity_plus/connectivity_plus.dart';
 export 'package:weather/thingsboard/services/internet_connection.dart';
 export '../../../main.dart';
-export 'screens/historical_graph_screen.dart';
-// export 'package:syncfusion_flutter_charts/charts.dart';
+export 'screens/history/historical_graph_screen.dart';
+export 'package:flutter_local_notifications/flutter_local_notifications.dart';
+export 'package:weather/thingsboard/services/local_notification_service.dart';
+
+export 'package:flutter/foundation.dart';

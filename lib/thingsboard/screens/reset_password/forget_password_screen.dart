@@ -1,6 +1,5 @@
 
 import '../../commons.dart';
-import 'package:http/http.dart' as http;
 part 'forget_password_controller.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
@@ -103,7 +102,9 @@ class _ForgetPasswordScreen extends ForgetPasswordController {
                   tbClient.changePassword('currentPassword', 'newPassword');
                 }
                 catch(e){
-                  print(e);
+                  if (kDebugMode) {
+                    print(e);
+                  }
                 }
               },
               child: const Text('Recover Password',style: TextStyle(color: Colors.white),),

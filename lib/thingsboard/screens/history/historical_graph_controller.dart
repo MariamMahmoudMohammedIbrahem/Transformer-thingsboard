@@ -30,7 +30,9 @@ abstract class HistoricalGraphController
       setState(() {
         telemetryData = fetchedData;
       });
-      print(telemetryData);
+      if (kDebugMode) {
+        print(telemetryData);
+      }
       // Future.delayed(const Duration(seconds: 5),);
     // }
   }
@@ -38,19 +40,25 @@ abstract class HistoricalGraphController
       String deviceId, List<String> keys, int startTime, int endTime) async {
     final url =
         '$thingsBoardApiEndpoint/api/plugins/telemetry/DEVICE/$deviceId/values/timeseries?keys=${keys.join(',')}&startTs=$startTime&endTs=$endTime';
-    print("url: ${Uri.parse(url)}");
-    print("jwt token: ${tbClient.getJwtToken()}");
+    if (kDebugMode) {
+      print("url: ${Uri.parse(url)}");
+      print("jwt token: ${tbClient.getJwtToken()}");
+    }
     final response = await http.get(
       Uri.parse(url),
       headers: {
         'X-Authorization': 'Bearer ${tbClient.getJwtToken()}',
       },
     );
-    print(response.body);
+    if (kDebugMode) {
+      print(response.body);
+    }
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body) as Map<String, dynamic>;
-      print('data $data');
+      if (kDebugMode) {
+        print('data $data');
+      }
       return data.map((key, valueList) {
         return MapEntry(
           key,

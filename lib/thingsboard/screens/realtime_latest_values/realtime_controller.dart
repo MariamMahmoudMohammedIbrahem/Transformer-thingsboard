@@ -242,13 +242,14 @@ abstract class RealtimeController extends State<RealtimeScreen> {
       try {
         // Fetch the latest telemetry data
         final latestTelemetry = await fetchLatestTelemetryData(deviceId, keys);
-        print('Latest Telemetry: $latestTelemetry');
-
-        // Optional: Process or store the fetched telemetry data here
-        // e.g., updating a UI or saving it to a variable
+        if (kDebugMode) {
+          print('Latest Telemetry: $latestTelemetry');
+        }
 
       } catch (e) {
-        print('Error fetching telemetry data: $e');
+        if (kDebugMode) {
+          print('Error fetching telemetry data: $e');
+        }
       }
 
       // Add a delay before the next fetch
@@ -258,12 +259,14 @@ abstract class RealtimeController extends State<RealtimeScreen> {
 
   Future<Map<String, dynamic>> fetchLatestTelemetryData(
       String deviceId, List<String> keys) async {
-    print('Fetching telemetry data...');
+    if (kDebugMode) {
+      print('Fetching telemetry data...');
+    }
     try {
       // Use the concrete subclass `DeviceId`
       final entityId = DeviceId(deviceId);
 
-      final timeseries = await tbClient.getAttributeService().getTimeseries(
+      final timeSeries = await tbClient.getAttributeService().getTimeseries(
         entityId,
         keys,
         limit: 1, // Fetch only the most recent value
@@ -271,17 +274,19 @@ abstract class RealtimeController extends State<RealtimeScreen> {
       );
 
       // Convert the List<TsKvEntry> to Map<String, dynamic>
-      setState(() {
-        latestValues = {
-          for (var entry in timeseries) entry.getKey(): entry.getValue(),
-        };
-      });
+      if(mounted) {
+        setState(() {
+          latestValues = {
+            for (var entry in timeSeries) entry.getKey(): entry.getValue(),
+          };
+        });
+      }
 
-
-      print(latestValues);
       return latestValues;
     } catch (e) {
-      print('Error fetching telemetry data: $e');
+      if (kDebugMode) {
+        print('Error fetching telemetry data: $e');
+      }
       throw Exception('Failed to fetch telemetry data: $e');
     }
   }

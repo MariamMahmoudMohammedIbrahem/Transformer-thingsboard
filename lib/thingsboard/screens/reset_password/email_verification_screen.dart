@@ -3,7 +3,7 @@ import '../../commons.dart';
 part 'email_verification_controller.dart';
 
 class EmailVerificationScreen extends StatefulWidget {
-  const EmailVerificationScreen({Key? key}) : super(key: key);
+  const EmailVerificationScreen({super.key});
 
   @override
   createState() => _EmailVerificationScreen();

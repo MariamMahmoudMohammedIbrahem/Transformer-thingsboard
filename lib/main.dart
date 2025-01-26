@@ -1,4 +1,3 @@
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:weather/thingsboard/commons.dart';
 
 /*Future<void> main() async {
@@ -19,7 +18,7 @@ import 'package:weather/thingsboard/commons.dart';
       );
 }*/
 
-
+/*
 final notifications = FlutterLocalNotificationsPlugin();
 void initializeNotifications() {
   notifications.initialize(
@@ -39,10 +38,10 @@ void backgroundHandler(NotificationResponse response) async {
   if (response.payload != null) {
     await notifications.cancel(response.id!);
   }
-}
+}*/
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  initializeNotifications();
+  // initializeNotifications();
   await _initializeApp();
 
   runApp(
@@ -53,18 +52,14 @@ Future<void> main() async {
       ],
       child: const MyApp(),
     ),
-    /*ChangeNotifierProvider(
-      create: (context) => AppProvider(),
-      child: const MyApp(),
-    ),*/
   );
 }
 
 Future<void> _initializeApp() async {
+  initializeNotifications();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // await FirebaseApi().initNotification();
   HttpOverrides.global = MyHttpOverrides();
 }
 class MyHttpOverrides extends HttpOverrides {

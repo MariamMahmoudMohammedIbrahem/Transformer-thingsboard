@@ -55,6 +55,7 @@ abstract class AutoSignInController extends State<AutoSignInScreen>{
     final prefs = await SharedPreferences.getInstance();
     final email = prefs.getString('email') ?? '';
     final password = prefs.getString('password') ?? '';
+    thingsBoardApiEndpoint = prefs.getString('api_end_point')??'https://demo.thingsboard.io';
 
     if (email.isEmpty || password.isEmpty) {
       return false;
@@ -65,6 +66,7 @@ abstract class AutoSignInController extends State<AutoSignInScreen>{
 
       await FirebaseApi().initNotification();
       token = tbClient.getJwtToken()!;
+      print(token);
       return true;
     } catch (e) {
       return false;

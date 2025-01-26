@@ -1,68 +1,88 @@
-part of 'history_screen.dart';
+part of 'realtime_graph_screen.dart';
 
-abstract class HistoryController extends State<HistoryScreen> {
+abstract class RealtimeGraphController extends State<RealtimeGraphScreen> {
 
   String selectedRange = 'Day';
   var selectedDevice = devices.data.first;
   String? selectedName = devices.data.first.latest[EntityKeyType.ENTITY_FIELD]?['name']?.value; // Initialize selectedName as the first device's name
   // var selectedDeviceName = devices.data.first.e;
+  bool isRunning = true;
 
   List<bool> graphs = [true, true, true, true, true, true, true];
   @override
   void initState(){
-    print('object');
+    if (kDebugMode) {
+      print('object');
+    }
     super.initState();
     try {
-      print('devices $devices');
+      if (kDebugMode) {
+        print('devices $devices');
+      }
       devices;
       historical();
     } catch (e) {
-        print('Devices have not been initialized');
+        if (kDebugMode) {
+          print('Devices have not been initialized');
+        }
     }
   }
   Future<void> historical() async{
-    print('in historical data');
-    while(true) {
-      // var firstDevice = devices.data[2];
-      // var firstDeviceId = firstDevice.entityId.id;
-      // print('firstDevice $firstDevice');
-      // print('first device id$firstDeviceId');
-      final endTime = DateTime
-          .now()
-          .millisecondsSinceEpoch;
-      final startTime = DateTime
-          .now()
-          .subtract(const Duration(days: 1))
-          .millisecondsSinceEpoch;
-      final fetchedData = await fetchHistoryData(
-        selectedDevice.entityId.id!,
-        keys,
-        startTime,
-        endTime,
-      );
-      setState(() {
-        telemetryData = fetchedData;
-      });
-      print(telemetryData);
-      Future.delayed(const Duration(seconds: 5),);
+    while(isRunning) {
+      try {
+        // var firstDevice = devices.data[2];
+        // var firstDeviceId = firstDevice.entityId.id;
+        // print('firstDevice $firstDevice');
+        // print('first device id$firstDeviceId');
+        final endTime = DateTime
+            .now()
+            .millisecondsSinceEpoch;
+        final startTime = DateTime
+            .now()
+            .subtract(const Duration(days: 1))
+            .millisecondsSinceEpoch;
+        final fetchedData = await fetchHistoryData(
+          selectedDevice.entityId.id!,
+          keys,
+          startTime,
+          endTime,
+        );
+        if (mounted) {
+          setState(() {
+            telemetryData = fetchedData;
+          });
+        }
+        if (kDebugMode) {
+          print(telemetryData);
+        }
+        Future.delayed(const Duration(seconds: 5),);
+      }
+      catch(e){
+        // break;
+      }
     }
   }
   Future<Map<String, Map<int, dynamic>>> fetchHistoryData(
       String deviceId, List<String> keys, int startTime, int endTime) async {
     final url =
         '$thingsBoardApiEndpoint/api/plugins/telemetry/DEVICE/$deviceId/values/timeseries?keys=${keys.join(',')}&startTs=$startTime&endTs=$endTime';
-
+print(url);
+print(tbClient.getJwtToken());
     final response = await http.get(
       Uri.parse(url),
       headers: {
         'X-Authorization': 'Bearer ${tbClient.getJwtToken()}',
       },
     );
-    print(response.body);
+    if (kDebugMode) {
+      print(response.body);
+    }
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body) as Map<String, dynamic>;
-      print('data $data');
+      if (kDebugMode) {
+        print('data $data');
+      }
       return data.map((key, valueList) {
         return MapEntry(
           key,
@@ -211,7 +231,9 @@ abstract class HistoryController extends State<HistoryScreen> {
         .where((entry) => entry.key >= startOfDay)
         .map((entry) => MapEntry(entry.key, double.parse(entry.value)));
 
-    print('Filtered data for the day: ${filteredData.length}');
+    if (kDebugMode) {
+      print('Filtered data for the day: ${filteredData.length}');
+    }
 
     // Convert filtered data to FlSpots
     return filteredData
@@ -222,4 +244,50 @@ abstract class HistoryController extends State<HistoryScreen> {
         .toList();
 }
 
+  List<LineChartBarData> _getLineBarsData(List<int> indexes) {
+    return [
+      LineChartBarData(
+        show: graphs[indexes[0]],
+        spots: _getChartData(telemetryData, keys[indexes[0]]),
+        isCurved: false,
+        color: Colors.blue,
+        dotData: const FlDotData(show: false),
+        barWidth: 1,
+        belowBarData: BarAreaData(show: false),
+      ),
+      LineChartBarData(
+        show: graphs[indexes[1]],
+        spots: _getChartData(telemetryData, keys[indexes[1]]),
+        isCurved: false,
+        color: Colors.red,
+        dotData: const FlDotData(show: false),
+        barWidth: 1,
+        belowBarData: BarAreaData(show: false),
+      ),
+      LineChartBarData(
+        show: graphs[indexes[2]],
+        spots: _getChartData(telemetryData, keys[indexes[2]]),
+        isCurved: false,
+        color: Colors.yellow.shade700,
+        dotData: const FlDotData(show: false),
+        barWidth: 1,
+        belowBarData: BarAreaData(show: false),
+      ),
+    ];
+  }
+
+  double _calculateMaxY(List<int> indexes) {
+    final allValues = [
+      ..._getChartData(telemetryData, keys[indexes[0]]).map((spot) => spot.y),
+      ..._getChartData(telemetryData, keys[indexes[1]]).map((spot) => spot.y),
+      ..._getChartData(telemetryData, keys[indexes[2]]).map((spot) => spot.y),
+    ];
+    return allValues.isNotEmpty ? allValues.reduce((a, b) => a > b ? a : b) : 0;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    isRunning = false;
+  }
 }

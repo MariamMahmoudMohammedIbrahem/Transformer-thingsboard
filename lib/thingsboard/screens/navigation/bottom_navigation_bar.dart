@@ -69,7 +69,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   int _currentIndex = 1;
   final List<Widget> _screens = [
     // const HistoricalGraphScreen(),
-    const HistoryScreen(),
+    const RealtimeGraphScreen(),
     const DashboardScreen(),
     const SettingsScreen(),
   ];

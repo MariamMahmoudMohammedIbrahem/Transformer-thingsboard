@@ -164,7 +164,7 @@ abstract class DashboardController extends State<DashboardScreen> {
 
       while (true) {
         // Fetch the devices data
-        var devices = await tbClient
+        devices = await tbClient
             .getEntityQueryService()
             .findEntityDataByQuery(devicesQuery);
 
@@ -174,8 +174,10 @@ abstract class DashboardController extends State<DashboardScreen> {
         await Future.delayed(const Duration(seconds: 2));
       }
     } catch (e, s) {
-      print('Error: $e');
-      print('Stack: $s');
+      if (kDebugMode) {
+        print('Error: $e');
+        print('Stack: $s');
+      }
     }
   }
 

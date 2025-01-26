@@ -2,7 +2,6 @@
 import 'package:thingsboard_client/thingsboard_client.dart';
 
 import '../../commons.dart';
-import 'package:http/http.dart' as http;
 part 'realtime_controller.dart';
 
 class RealtimeScreen extends StatefulWidget {

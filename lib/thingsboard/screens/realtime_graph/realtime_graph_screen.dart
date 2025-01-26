@@ -1,18 +1,16 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 import '../../commons.dart';
 import 'package:http/http.dart' as http;
-part 'history_controller.dart';
+part 'realtime_graph_controller.dart';
 
-class HistoryScreen extends StatefulWidget {
-  const HistoryScreen({super.key});
+class RealtimeGraphScreen extends StatefulWidget {
+  const RealtimeGraphScreen({super.key});
 
   @override
   createState() => _HistoryScreen();
 }
 
-class _HistoryScreen extends HistoryController {
+class _HistoryScreen extends RealtimeGraphController {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -111,11 +109,9 @@ class _HistoryScreen extends HistoryController {
                 child: Text('Voltage',style: TextStyle(color: Color(0xFF305680),fontWeight: FontWeight.w600, fontSize: 24,),),
               ),
               SizedBox(
-                // width: width * .95,
                 height: height * .35,
                 child: LineChart(
                   LineChartData(
-                    // minY: 150,
                     titlesData: FlTitlesData(
                       rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false),),
                       topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false),),
@@ -132,10 +128,10 @@ class _HistoryScreen extends HistoryController {
                             return SideTitleWidget(
                               axisSide: meta.axisSide,
                               space: 8,
-                                child: Text(
-                                  time,
-                                  style: const TextStyle(fontSize: 10),
-                                ),
+                              child: Text(
+                                time,
+                                style: const TextStyle(fontSize: 10),
+                              ),
                             );
                           },
                         ),
@@ -161,35 +157,9 @@ class _HistoryScreen extends HistoryController {
                         ),
                       ),
                     ),
-                    lineBarsData: [
-                      LineChartBarData(
-                        show: graphs[0],
-                        spots: _getChartData(telemetryData, keys[0]),
-                        isCurved: false,
-                        color: Colors.blue,
-                        dotData: const FlDotData(show: false),
-                        barWidth: 1,
-                        belowBarData: BarAreaData(show: false),
-                      ),
-                      LineChartBarData(
-                        show: graphs[1],
-                        spots: _getChartData(telemetryData, keys[1]),
-                        isCurved: false,
-                        color: Colors.red,
-                        dotData: const FlDotData(show: false),
-                        barWidth: 1,
-                        belowBarData: BarAreaData(show: false),
-                      ),
-                      LineChartBarData(
-                        show: graphs[2],
-                        spots: _getChartData(telemetryData, keys[2]),
-                        isCurved: false,
-                        color: Colors.yellow.shade700,
-                        dotData: const FlDotData(show: false),
-                        barWidth: 1,
-                        belowBarData: BarAreaData(show: false),
-                      ),
-                    ],
+                    lineBarsData: _getLineBarsData([0,1,2]),
+                    // minY: 0,
+                    maxY: _calculateMaxY([0,1,2]) + 10, // Increase max Y by 10
                   ),
                 ),
               ),
@@ -262,7 +232,9 @@ class _HistoryScreen extends HistoryController {
                         ),
                       ),
                     ),
-                    lineBarsData: [
+                    lineBarsData: _getLineBarsData([3,4,5]),
+                    maxY: _calculateMaxY([3,4,5]) + 10, // Increase max Y by 10
+                    /*lineBarsData: [
                       LineChartBarData(
                         show: graphs[3],
                         spots: _getChartData(telemetryData, keys[3]),
@@ -290,18 +262,18 @@ class _HistoryScreen extends HistoryController {
                         barWidth: 1,
                         belowBarData: BarAreaData(show: false),
                       ),
-                    ],
+                    ],*/
                   ),
                 ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildIndicator(keys[3], Colors.orange),
+                  _buildIndicator(keys[3], Colors.blue),
                   const SizedBox(width: 20),
-                  _buildIndicator(keys[4], Colors.grey),
+                  _buildIndicator(keys[4], Colors.red),
                   const SizedBox(width: 20),
-                  _buildIndicator(keys[5], Colors.pink),
+                  _buildIndicator(keys[5], Colors.yellow.shade700),
                 ],
               ),
               const SizedBox(height: 10,),
@@ -405,7 +377,6 @@ class _HistoryScreen extends HistoryController {
         ],
       ),
       onTap: (){
-        print('tapping');
         switch (label){
           case 'v1':
             if(graphs[1]||graphs[2]){

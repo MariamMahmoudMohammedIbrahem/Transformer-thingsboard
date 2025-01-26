@@ -83,7 +83,9 @@ class _DashboardScreen extends DashboardController {
                   }
 
                   final devices = snapshot.data!;
-                  print(devices);
+                  if (kDebugMode) {
+                    print(devices);
+                  }
                   return Expanded(
                     child: toggle
                         ? ListView.builder(
@@ -105,10 +107,12 @@ class _DashboardScreen extends DashboardController {
                                           ?['active']
                                       ?.value == 'true' ?'active':
                               'inactive';
-                              print('$name is ${entity
+                              if (kDebugMode) {
+                                print('$name is ${entity
                                   .latest[EntityKeyType.ATTRIBUTE]
                               ?['active']
                                   ?.value}');
+                              }
                               return ListTile(
                                 leading: const Icon(
                                   Icons.transform_rounded,

@@ -35,7 +35,9 @@ class CustomerUsersState extends State<CustomerUsers> {
       });
     } catch (e) {
       setState(() => isLoading = false);
-      print('Error fetching customer users: $e');
+      if (kDebugMode) {
+        print('Error fetching customer users: $e');
+      }
     }
   }
 

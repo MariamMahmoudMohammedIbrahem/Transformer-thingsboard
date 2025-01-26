@@ -2,7 +2,7 @@
 import 'commons.dart';
 
 // String thingsBoardApiEndpoint = 'http://192.168.0.112:8081';
-String thingsBoardApiEndpoint = 'https://demo.thingsboard.io';
+late String thingsBoardApiEndpoint;
 
 var tbClient = ThingsboardClient(thingsBoardApiEndpoint);
 
@@ -26,3 +26,5 @@ late String password;
 
 
 List<String> keys = ['v1','v2','v3','i1','i2','i3','tv','ts','os','bs'];
+
+bool notificationEnable = true;

@@ -51,11 +51,39 @@ class _SettingsScreen extends SettingsController {
                 return Switch(
                     value: darkLight.isDarkMode,
                     onChanged: (value) {
-                      print(value);
+                      if (kDebugMode) {
+                        print(value);
+                      }
                       darkLight.setTheme(value);
                     });
               },
             ),
+          ),
+          ListTile(
+            title: const Text(
+              'Notifications',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Color(
+                  0xFF305680,
+                ),
+              ),
+            ),
+            trailing: Switch(
+                value: notificationEnable,
+                onChanged: (value) {
+                  if(notificationEnable) {
+                    setState(() {
+                      notificationEnable = false;
+                    });
+                    FirebaseApi().disposeNotification();
+                  } else {
+                    setState(() {
+                      notificationEnable = true;
+                    });
+                    FirebaseApi().initNotification();
+                  }
+                }),
           ),
           ListTile(
             title: const Text(
@@ -74,11 +102,13 @@ class _SettingsScreen extends SettingsController {
                 FirebaseApi().disposeNotification();
                 emailUser = '';
                 password = '';
-                Provider.of<AppProvider>(context, listen: false).setFirstTime('');
+                Provider.of<AppProvider>(context, listen: false).setFirstTime('', '');
                 Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const SignInScreen(),), (route) => false);
               }
               catch(e){
-                print(e);
+                if (kDebugMode) {
+                  print(e);
+                }
               }
             },
           ),

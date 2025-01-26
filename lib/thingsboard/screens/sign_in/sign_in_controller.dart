@@ -18,7 +18,7 @@ abstract class SignInController extends State<SignInScreen> {
       await tbClient.login(LoginRequest(emailUser, password));
       token = tbClient.getJwtToken()!;
       if (rememberPassword) {
-        Provider.of<AppProvider>(context, listen: false).setFirstTime(token);
+        Provider.of<AppProvider>(context, listen: false).setFirstTime(token, thingsBoardApiEndpoint);
       }
       await FirebaseApi().initNotification();
 
@@ -60,12 +60,12 @@ abstract class SignInController extends State<SignInScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Login Error'),
+        title: const Text('Login Error'),
         content: Text(message),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('OK'),
+            child: const Text('OK'),
           ),
         ],
       ),

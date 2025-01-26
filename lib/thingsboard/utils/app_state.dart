@@ -17,11 +17,12 @@ class AppProvider extends ChangeNotifier{
     return _isFirstTime;
   }
 
-  Future<void> setFirstTime(String token) async {
+  Future<void> setFirstTime(String token, String apiEndpoint) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('first_time', token);
     await prefs.setString('email', emailUser);
     await prefs.setString('password', password);
+    await prefs.setString('api_end-point', apiEndpoint);
     notifyListeners();
   }
 
@@ -41,6 +42,4 @@ class AppProvider extends ChangeNotifier{
     await prefs.setBool('dark_theme', isDark);
     notifyListeners();
   }
-
-  ///TODO: STORE THE API (LOCAL/DEMO)
 }
