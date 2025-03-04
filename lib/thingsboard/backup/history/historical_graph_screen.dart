@@ -18,9 +18,7 @@ class _HistoricalGraphScreen extends HistoricalGraphController {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () {
-                historical();
-              },
+              onPressed: historical,
               child: const Text(
                 'hey',
               ),

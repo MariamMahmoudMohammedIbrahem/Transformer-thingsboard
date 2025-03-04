@@ -1,6 +1,6 @@
+import 'package:transformer/thingsboard/backup/backup_widgets/users_screen.dart';
 
-
-import '../commons.dart';
+import '../../commons.dart';
 
 class Customers extends StatefulWidget {
   const Customers({super.key});
@@ -33,9 +33,6 @@ class CustomersState extends State<Customers> {
       });
     } catch (e) {
       setState(() => isLoading = false);
-      if (kDebugMode) {
-        print('Error fetching customers: $e');
-      }
     }
   }
 
@@ -47,9 +44,6 @@ class CustomersState extends State<Customers> {
       final createdCustomer = await tbClient.getCustomerService().saveCustomer(customer);
 
       if (createdCustomer.id?.id != null) {
-        if (kDebugMode) {
-          print('Customer created successfully: ${createdCustomer.id?.id}');
-        }
 
         // Step 2: Add the User for the Customer
         final user = User(userEmail, Authority.CUSTOMER_USER);
@@ -58,14 +52,9 @@ class CustomersState extends State<Customers> {
         user.customerId = createdCustomer.id;
 
         await tbClient.getUserService().saveUser(user);
-        if (kDebugMode) {
-          print('User added successfully for customer: ${createdCustomer.title}');
-        }
       }
     } catch (e) {
-      if (kDebugMode) {
-        print('Failed to add customer or user: $e');
-      }
+      throw Exception("Failed to Add Customer with user $e");
     }
   }
 
@@ -146,9 +135,6 @@ class CustomersState extends State<Customers> {
           : ListView.builder(
               itemCount: customers.length,
               itemBuilder: (context, index) {
-                if (kDebugMode) {
-                  print('customers => $customers');
-                }
                 final customer = customers[index];
                 return ListTile(
                   title: Text(customer['title'] ?? 'No Title'),

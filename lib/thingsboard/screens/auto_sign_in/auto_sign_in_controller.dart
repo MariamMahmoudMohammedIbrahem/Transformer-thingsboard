@@ -5,52 +5,27 @@ abstract class AutoSignInController extends State<AutoSignInScreen>{
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
-    // bool connected = await checkConnection();
     final autoSignedIn = await autoSign();
-    // if(connected) {
-      if (autoSignedIn) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const GlobalConnectionChecker(
-              child: BottomNavigation(),
-            ),
+    if (autoSignedIn) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const GlobalConnectionChecker(
+            child: BottomNavigation(),
           ),
-        );
-
-        /*Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const BottomNavigation(),
+        ),
+      );
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const GlobalConnectionChecker(
+            child: SignInScreen(),
           ),
-        );*/
-      } else {
-
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const GlobalConnectionChecker(
-              child: SignInScreen(),
-            ),
-          ),
-        );
-        /*Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const SignInScreen(),
-          ),
-        );*/
-      }
-    // }
-  }
-  /*Future<bool> checkConnection () async{
-    var connectivityResult = await Connectivity().checkConnectivity();
-    if(connectivityResult.first == ConnectivityResult.none){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const InternetConnectionScreen(),),);
-      return false;
+        ),
+      );
     }
-    return true;
-  }*/
+  }
   Future<bool> autoSign() async {
     final prefs = await SharedPreferences.getInstance();
     final email = prefs.getString('email') ?? '';
@@ -66,7 +41,6 @@ abstract class AutoSignInController extends State<AutoSignInScreen>{
 
       await FirebaseApi().initNotification();
       token = tbClient.getJwtToken()!;
-      print(token);
       return true;
     } catch (e) {
       return false;

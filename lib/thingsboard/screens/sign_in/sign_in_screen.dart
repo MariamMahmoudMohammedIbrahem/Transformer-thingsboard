@@ -1,4 +1,3 @@
-
 import '../../commons.dart';
 
 part 'sign_in_controller.dart';
@@ -33,7 +32,7 @@ class _SignInScreen extends SignInController {
                                   children: [
                                     TextFormField(
                                       controller: authenticationController,
-                                      cursorColor: const Color(0xFF305680),
+                                      cursorColor: MyColors.blueDark,
                                       obscureText: hidePassword,
                                       autocorrect: false,
                                       decoration: InputDecoration(
@@ -43,7 +42,7 @@ class _SignInScreen extends SignInController {
                                             hidePassword
                                                 ? Icons.visibility
                                                 : Icons.visibility_off,
-                                            color: const Color(0xFF305680),
+                                            color: MyColors.blueDark,
                                           ),
                                           onPressed: () {
                                             if (hidePassword == true) {
@@ -63,7 +62,7 @@ class _SignInScreen extends SignInController {
                                               final Color color =
                                               states.contains(MaterialState.error)
                                                   ? Theme.of(context).colorScheme.error
-                                                  : const Color(0xFF305680);
+                                                  : MyColors.blueDark;
                                               return TextStyle(
                                                   color: color,
                                                   letterSpacing: 1.3,
@@ -75,13 +74,13 @@ class _SignInScreen extends SignInController {
                                               final Color color =
                                               states.contains(MaterialState.error)
                                                   ? Theme.of(context).colorScheme.error
-                                                  : const Color(0xFF4A6380);
+                                                  : MyColors.blueLight;
                                               return TextStyle(color: color, letterSpacing: 1.3);
                                             }),
                                         focusedBorder: const UnderlineInputBorder(
                                           borderSide: BorderSide(
                                             width: 2,
-                                            color: Color(0xFF4A6380),
+                                            color: MyColors.blueLight,
                                           ),
                                         ),
                                         border: UnderlineInputBorder(
@@ -119,7 +118,7 @@ class _SignInScreen extends SignInController {
                                                         style: TextStyle(
                                                           fontWeight: FontWeight.bold,
                                                           fontSize: 23,
-                                                          color: Color(0xFF164980),
+                                                          color: MyColors.blueBoldLight,
                                                         ),
                                                       ),
                                                       DropdownButton<String>(
@@ -153,7 +152,7 @@ class _SignInScreen extends SignInController {
                                                             style: TextStyle(
                                                               fontWeight: FontWeight.bold,
                                                               fontSize: 22,
-                                                              color: Color(0xFF164980),
+                                                              color: MyColors.blueBoldLight,
                                                             ),
                                                           ),
                                                           Padding(
@@ -162,7 +161,7 @@ class _SignInScreen extends SignInController {
                                                             child: TextFormField(
                                                               controller: apiEndPort,
                                                               cursorColor:
-                                                              const Color(0xFF305680),
+                                                              MyColors.blueDark,
                                                               decoration: InputDecoration(
                                                                 floatingLabelStyle:
                                                                 MaterialStateTextStyle
@@ -176,8 +175,7 @@ class _SignInScreen extends SignInController {
                                                                       ? Theme.of(context)
                                                                       .colorScheme
                                                                       .error
-                                                                      : const Color(
-                                                                      0xFF305680);
+                                                                      : MyColors.blueDark;
                                                                   return TextStyle(
                                                                       color: color,
                                                                       letterSpacing: 1.3,
@@ -197,8 +195,7 @@ class _SignInScreen extends SignInController {
                                                                       ? Theme.of(context)
                                                                       .colorScheme
                                                                       .error
-                                                                      : const Color(
-                                                                      0xFF4A6380);
+                                                                      : MyColors.blueLight;
                                                                   return TextStyle(
                                                                       color: color,
                                                                       letterSpacing: 1.3);
@@ -207,8 +204,7 @@ class _SignInScreen extends SignInController {
                                                                 const UnderlineInputBorder(
                                                                   borderSide: BorderSide(
                                                                     width: 2,
-                                                                    color:
-                                                                    Color(0xFF4A6380),
+                                                                    color: MyColors.blueLight,
                                                                   ),
                                                                 ),
                                                                 border:
@@ -227,7 +223,7 @@ class _SignInScreen extends SignInController {
                                                             style: TextStyle(
                                                               fontWeight: FontWeight.bold,
                                                               fontSize: 22,
-                                                              color: Color(0xFF164980),
+                                                              color: MyColors.blueBoldLight,
                                                             ),
                                                           ),
                                                           Padding(
@@ -235,8 +231,7 @@ class _SignInScreen extends SignInController {
                                                                 left: 8.0),
                                                             child: TextFormField(
                                                               controller: apiEndIp,
-                                                              cursorColor:
-                                                              const Color(0xFF305680),
+                                                              cursorColor: MyColors.blueDark,
                                                               decoration: InputDecoration(
                                                                 floatingLabelStyle:
                                                                 MaterialStateTextStyle
@@ -250,8 +245,7 @@ class _SignInScreen extends SignInController {
                                                                       ? Theme.of(context)
                                                                       .colorScheme
                                                                       .error
-                                                                      : const Color(
-                                                                      0xFF305680);
+                                                                      : MyColors.blueDark;
                                                                   return TextStyle(
                                                                       color: color,
                                                                       letterSpacing: 1.3,
@@ -271,8 +265,7 @@ class _SignInScreen extends SignInController {
                                                                       ? Theme.of(context)
                                                                       .colorScheme
                                                                       .error
-                                                                      : const Color(
-                                                                      0xFF4A6380);
+                                                                      : MyColors.blueLight;
                                                                   return TextStyle(
                                                                       color: color,
                                                                       letterSpacing: 1.3);
@@ -281,8 +274,7 @@ class _SignInScreen extends SignInController {
                                                                 const UnderlineInputBorder(
                                                                   borderSide: BorderSide(
                                                                     width: 2,
-                                                                    color:
-                                                                    Color(0xFF4A6380),
+                                                                    color: MyColors.blueLight,
                                                                   ),
                                                                 ),
                                                                 border:
@@ -365,7 +357,7 @@ class _SignInScreen extends SignInController {
                       style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF164980),
+                        color: MyColors.blueBoldLight,
                       ),
                     ),
                   ),
@@ -380,9 +372,7 @@ class _SignInScreen extends SignInController {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                height10,
                 Form(
                   key: formKey,
                   child: Column(
@@ -394,13 +384,13 @@ class _SignInScreen extends SignInController {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF164980),
+                            color: MyColors.blueBoldLight,
                           ),
                         ),
                       ),
                       TextFormField(
                         controller: emailUserController,
-                        cursorColor: const Color(0xFF305680),
+                        cursorColor: MyColors.blueDark,
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -420,7 +410,7 @@ class _SignInScreen extends SignInController {
                             final Color color =
                                 states.contains(MaterialState.error)
                                     ? Theme.of(context).colorScheme.error
-                                    : const Color(0xFF305680);
+                                    : MyColors.blueDark;
                             return TextStyle(
                                 color: color,
                                 letterSpacing: 1.3,
@@ -432,7 +422,7 @@ class _SignInScreen extends SignInController {
                             final Color color =
                                 states.contains(MaterialState.error)
                                     ? Theme.of(context).colorScheme.error
-                                    : const Color(0xFF4A6380);
+                                    : MyColors.blueLight;
                             return TextStyle(color: color, letterSpacing: 1.3);
                           }),
                           focusedBorder: const UnderlineInputBorder(
@@ -440,7 +430,7 @@ class _SignInScreen extends SignInController {
                             //     BorderRadius.all(Radius.circular(20.0)),
                             borderSide: BorderSide(
                               width: 2,
-                              color: Color(0xFF4A6380),
+                              color: MyColors.blueLight,
                             ),
                           ),
                           border: UnderlineInputBorder(
@@ -456,20 +446,7 @@ class _SignInScreen extends SignInController {
                           emailUser = value;
                         },
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      /*const Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Password',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),*/
+                      height10,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -478,7 +455,7 @@ class _SignInScreen extends SignInController {
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF164980),
+                              color: MyColors.blueBoldLight,
                             ),
                           ),
                           TextButton(
@@ -493,14 +470,14 @@ class _SignInScreen extends SignInController {
                             },
                             child: const Text(
                               'Forget Password?',
-                              style: TextStyle(color: Color(0xFF164980)),
+                              style: TextStyle(color: MyColors.blueBoldLight),
                             ),
                           ),
                         ],
                       ),
                       TextFormField(
                         controller: passwordController,
-                        cursorColor: const Color(0xFF305680),
+                        cursorColor: MyColors.blueDark,
                         keyboardType: TextInputType.text,
                         obscureText: hidePassword,
                         validator: (value) {
@@ -517,7 +494,7 @@ class _SignInScreen extends SignInController {
                               hidePassword
                                   ? Icons.visibility
                                   : Icons.visibility_off,
-                              color: const Color(0xFF305680),
+                              color: MyColors.blueDark,
                             ),
                             onPressed: () {
                               if (hidePassword == true) {
@@ -538,7 +515,7 @@ class _SignInScreen extends SignInController {
                             final Color color =
                                 states.contains(MaterialState.error)
                                     ? Theme.of(context).colorScheme.error
-                                    : const Color(0xFF305680);
+                                    : MyColors.blueDark;
                             return TextStyle(
                                 color: color,
                                 letterSpacing: 1.3,
@@ -550,14 +527,14 @@ class _SignInScreen extends SignInController {
                             final Color color =
                                 states.contains(MaterialState.error)
                                     ? Theme.of(context).colorScheme.error
-                                    : const Color(0xFF305680);
+                                    : MyColors.blueDark;
                             return TextStyle(
                                 color: color, letterSpacing: 1.3, fontSize: 20);
                           }),
                           focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               width: 2,
-                              color: Color(0xFF113F67),
+                              color: MyColors.blueBoldDark,
                             ),
                           ),
                           border: UnderlineInputBorder(
@@ -587,7 +564,7 @@ class _SignInScreen extends SignInController {
                     const Text(
                       'Keep me logged in',
                       style: TextStyle(
-                          color: Color(0xFF305680),
+                          color: MyColors.blueDark,
                           fontWeight: FontWeight.bold),
                     ),
                   ],

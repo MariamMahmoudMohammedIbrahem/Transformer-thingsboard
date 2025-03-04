@@ -1,15 +1,8 @@
 import '../../commons.dart';
 
-part 'internet_connection_controller.dart';
-
-class InternetConnectionScreen extends StatefulWidget {
+class InternetConnectionScreen extends StatelessWidget {
   const InternetConnectionScreen({super.key});
 
-  @override
-  createState() => _InternetConnectionScreen();
-}
-
-class _InternetConnectionScreen extends InternetConnectionController {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,11 +12,11 @@ class _InternetConnectionScreen extends InternetConnectionController {
           children: [
             const Icon(
               Icons.wifi_off,
-              color: Color(0xFF305680),
+              color: MyColors.blueDark,
               size: 100,
             ),
             Text(
-              'Ooops!',
+              'Oops!',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 26,

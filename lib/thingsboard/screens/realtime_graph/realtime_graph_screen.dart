@@ -17,22 +17,15 @@ class _HistoryScreen extends RealtimeGraphController {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        // backgroundColor: Colors.white54,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(20),
           ),
-          // side: BorderSide(
-          //   color: Colors.grey,
-          // ),
         ),
         title: const Text(
           'Real-Time Data',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            // color: Color(
-            //   0xFF305680,
-            // ),
           ),
         ),
         centerTitle: true,
@@ -48,7 +41,7 @@ class _HistoryScreen extends RealtimeGraphController {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text('Device', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: Color(0xFF305680),),),
-                  const SizedBox(width: 5,),
+                  width5,
                   Flexible(
                     child: DropdownButton<String>(
                       isExpanded: true,
@@ -87,21 +80,6 @@ class _HistoryScreen extends RealtimeGraphController {
                       icon: const Icon(Icons.arrow_drop_down, color: Color(0xFF305680)),
                     ),
                   ),
-          /*DropdownButton<EntityData>(
-                    hint: const Text('Select a device'), // Placeholder
-                    value: selectedDevice, // Selected value
-                    items: devices.data.map((EntityData device) {
-                      return DropdownMenuItem<EntityData>(
-                        value: device,
-                        child: Text('${device.latest[EntityKeyType.ENTITY_FIELD]?['name']!.value}'), // Display the name property
-                      );
-                    }).toList(),
-                    onChanged: (EntityData? newValue) {
-                      setState(() {
-                        selectedDevice = newValue!; // Update selected device
-                      });
-                    },
-                  ),*/
                 ],
               ),
               const Padding(
@@ -120,7 +98,7 @@ class _HistoryScreen extends RealtimeGraphController {
                           showTitles: true,
                           reservedSize: 40,
                           getTitlesWidget: (value, meta) {
-                            if (value.toInt() % 5 != 0) return const SizedBox.shrink();
+                            if (value.toInt() % 5 != 0) return kEmptyWidget;
                             final timestamp = value.toInt();
                             final time = DateTime.fromMillisecondsSinceEpoch(timestamp)
                                 .toIso8601String()
@@ -167,15 +145,15 @@ class _HistoryScreen extends RealtimeGraphController {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _buildIndicator(keys[0], Colors.blue),
-                  const SizedBox(width: 20),
+                  width20,
                   _buildIndicator(keys[1], Colors.red),
-                  const SizedBox(width: 20),
+                  width20,
                   _buildIndicator(keys[2], Colors.yellow.shade700),
                 ],
               ),
-              const SizedBox(height: 10,),
-              const Divider(),
-              const SizedBox(height: 10,),
+              height10,
+              divider,
+              height10,
               const Padding(
                 padding: EdgeInsets.only(bottom: 8.0),
                 child: Text('Current',style: TextStyle(color: Color(0xFF305680),fontWeight: FontWeight.w600, fontSize: 24,),),
@@ -185,8 +163,6 @@ class _HistoryScreen extends RealtimeGraphController {
                 height: height * .35,
                 child: LineChart(
                   LineChartData(
-                    // minY: 0,
-                    // maxY: 1200,
                     titlesData: FlTitlesData(
                       rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false),),
                       topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false),),
@@ -195,7 +171,7 @@ class _HistoryScreen extends RealtimeGraphController {
                           showTitles: true,
                           reservedSize: 40,
                           getTitlesWidget: (value, meta) {
-                            if (value.toInt() % 5 != 0) return const SizedBox.shrink();
+                            if (value.toInt() % 5 != 0) return kEmptyWidget;
                             final timestamp = value.toInt();
                             final time = DateTime.fromMillisecondsSinceEpoch(timestamp)
                                 .toIso8601String()
@@ -234,35 +210,6 @@ class _HistoryScreen extends RealtimeGraphController {
                     ),
                     lineBarsData: _getLineBarsData([3,4,5]),
                     maxY: _calculateMaxY([3,4,5]) + 10, // Increase max Y by 10
-                    /*lineBarsData: [
-                      LineChartBarData(
-                        show: graphs[3],
-                        spots: _getChartData(telemetryData, keys[3]),
-                        isCurved: false,
-                        color: Colors.orange,
-                        dotData: const FlDotData(show: false),
-                        barWidth: 1,
-                        belowBarData: BarAreaData(show: false),
-                      ),
-                      LineChartBarData(
-                        show: graphs[4],
-                        spots: _getChartData(telemetryData, keys[4]),
-                        isCurved: false,
-                        color: Colors.grey,
-                        dotData: const FlDotData(show: false),
-                        barWidth: 1,
-                        belowBarData: BarAreaData(show: false),
-                      ),
-                      LineChartBarData(
-                        show: graphs[5],
-                        spots: _getChartData(telemetryData, keys[5]),
-                        isCurved: false,
-                        color: Colors.pink,
-                        dotData: const FlDotData(show: false),
-                        barWidth: 1,
-                        belowBarData: BarAreaData(show: false),
-                      ),
-                    ],*/
                   ),
                 ),
               ),
@@ -270,15 +217,15 @@ class _HistoryScreen extends RealtimeGraphController {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _buildIndicator(keys[3], Colors.blue),
-                  const SizedBox(width: 20),
+                  width20,
                   _buildIndicator(keys[4], Colors.red),
-                  const SizedBox(width: 20),
+                  width20,
                   _buildIndicator(keys[5], Colors.yellow.shade700),
                 ],
               ),
-              const SizedBox(height: 10,),
-              const Divider(),
-              const SizedBox(height: 10,),
+              height10,
+              divider,
+              height10,
               const Padding(
                 padding: EdgeInsets.only(bottom: 8.0,),
                 child: Text('Temperature',style: TextStyle(color: Color(0xFF305680),fontWeight: FontWeight.w600, fontSize: 24,),),
@@ -288,7 +235,6 @@ class _HistoryScreen extends RealtimeGraphController {
                 height: height * .35,
                 child: LineChart(
                   LineChartData(
-                    // minY: 0,
                     titlesData: FlTitlesData(
                       rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false),),
                       topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false),),
@@ -297,7 +243,7 @@ class _HistoryScreen extends RealtimeGraphController {
                           showTitles: true,
                           reservedSize: 40,
                           getTitlesWidget: (value, meta) {
-                            if (value.toInt() % 10 != 0) return const SizedBox.shrink();
+                            if (value.toInt() % 10 != 0) return kEmptyWidget;
                             final timestamp = value.toInt();
                             final time = DateTime.fromMillisecondsSinceEpoch(timestamp)
                                 .toIso8601String()
@@ -321,7 +267,6 @@ class _HistoryScreen extends RealtimeGraphController {
                             final text = Text(
                               value.toStringAsFixed(1),
                               style: const TextStyle(
-                                // color: Colors.black,
                                 fontSize: 10,
                               ),
                             );
@@ -372,7 +317,7 @@ class _HistoryScreen extends RealtimeGraphController {
               shape: BoxShape.circle,
             ),
           ),
-          const SizedBox(width: 4),
+          width4,
           Text(label, style: const TextStyle(fontSize: 17),),
         ],
       ),

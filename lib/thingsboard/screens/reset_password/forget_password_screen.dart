@@ -38,7 +38,7 @@ class _ForgetPasswordScreen extends ForgetPasswordController {
             height8,
             TextFormField(
               controller: emailController,
-              cursorColor: const Color(0xFF305680),
+              cursorColor: MyColors.blueDark,
               keyboardType: TextInputType.emailAddress,
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -58,7 +58,7 @@ class _ForgetPasswordScreen extends ForgetPasswordController {
                       final Color color =
                       states.contains(MaterialState.error)
                           ? Theme.of(context).colorScheme.error
-                          : const Color(0xFF305680);
+                          : MyColors.blueDark;
                       return TextStyle(
                           color: color,
                           letterSpacing: 1.3,
@@ -70,24 +70,10 @@ class _ForgetPasswordScreen extends ForgetPasswordController {
                       final Color color =
                       states.contains(MaterialState.error)
                           ? Theme.of(context).colorScheme.error
-                          : const Color(0xFF4A6380);
+                          : MyColors.blueLight;
                       return TextStyle(color: color, letterSpacing: 1.3);
                     }),
                 border: InputBorder.none,
-                /*focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    width: 2,
-                    color: Color(0xFF4A6380),
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(20.0,),),
-                ),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    width: 1,
-                    color: Colors.grey.shade300,
-                  ),
-                  borderRadius: const BorderRadius.all(Radius.circular(20.0,),),
-                ),*/
               ),
               onChanged: (value) async {
                 emailUser = value;
@@ -98,13 +84,10 @@ class _ForgetPasswordScreen extends ForgetPasswordController {
               onPressed: (){
                 try {
                   tbClient.sendResetPasswordLink(emailUser);
-                  // tbClient.
                   tbClient.changePassword('currentPassword', 'newPassword');
                 }
                 catch(e){
-                  if (kDebugMode) {
-                    print(e);
-                  }
+                  throw Exception("Failed to send the reset password link $e");
                 }
               },
               child: const Text('Recover Password',style: TextStyle(color: Colors.white),),

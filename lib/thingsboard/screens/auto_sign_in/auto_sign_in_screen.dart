@@ -20,7 +20,7 @@ class _AutoSignInScreen extends AutoSignInController {
           children: [
             CircularProgressIndicator(
               strokeWidth: 10.0,
-              color: Color(0xFF305680),
+              color: MyColors.blueDark,
             ),
           ],
         ),

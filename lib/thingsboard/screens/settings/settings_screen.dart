@@ -14,22 +14,15 @@ class _SettingsScreen extends SettingsController {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // backgroundColor: Colors.white54,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(20),
           ),
-          // side: BorderSide(
-          //   color: Colors.grey,
-          // ),
         ),
         title: const Text(
           'Settings',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            // color: Color(
-            //   0xFF305680,
-            // ),
           ),
         ),
         centerTitle: true,
@@ -41,9 +34,7 @@ class _SettingsScreen extends SettingsController {
               'Dark Theme',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Color(
-                  0xFF305680,
-                ),
+                color: MyColors.blueDark,
               ),
             ),
             trailing: Consumer<AppProvider>(
@@ -51,9 +42,6 @@ class _SettingsScreen extends SettingsController {
                 return Switch(
                     value: darkLight.isDarkMode,
                     onChanged: (value) {
-                      if (kDebugMode) {
-                        print(value);
-                      }
                       darkLight.setTheme(value);
                     });
               },
@@ -64,53 +52,26 @@ class _SettingsScreen extends SettingsController {
               'Notifications',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Color(
-                  0xFF305680,
-                ),
+                color: MyColors.blueDark,
               ),
             ),
             trailing: Switch(
                 value: notificationEnable,
                 onChanged: (value) {
-                  if(notificationEnable) {
-                    setState(() {
-                      notificationEnable = false;
-                    });
-                    FirebaseApi().disposeNotification();
-                  } else {
-                    setState(() {
-                      notificationEnable = true;
-                    });
-                    FirebaseApi().initNotification();
-                  }
-                }),
+                  controlNotification();
+                },
+            ),
           ),
           ListTile(
             title: const Text(
               'LogOut',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Color(
-                  0xFF305680,
-                ),
+                color: MyColors.blueDark,
               ),
             ),
-            trailing: const Icon(Icons.logout_rounded, color: Color(0xFF305680),),
-            onTap: () {
-              try {
-                tbClient.logout();
-                FirebaseApi().disposeNotification();
-                emailUser = '';
-                password = '';
-                Provider.of<AppProvider>(context, listen: false).setFirstTime('', '');
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const SignInScreen(),), (route) => false);
-              }
-              catch(e){
-                if (kDebugMode) {
-                  print(e);
-                }
-              }
-            },
+            trailing: const Icon(Icons.logout_rounded, color: MyColors.blueDark),
+            onTap: logOut,
           ),
         ],
       ),

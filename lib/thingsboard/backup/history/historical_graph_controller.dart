@@ -13,7 +13,6 @@ abstract class HistoricalGraphController
   }
 
   Future<void> historical() async{
-    // while(true) {
       final endTime = DateTime
           .now()
           .millisecondsSinceEpoch;
@@ -30,35 +29,19 @@ abstract class HistoricalGraphController
       setState(() {
         telemetryData = fetchedData;
       });
-      if (kDebugMode) {
-        print(telemetryData);
-      }
-      // Future.delayed(const Duration(seconds: 5),);
-    // }
   }
   Future<Map<String, Map<int, dynamic>>> fetchHistoryData(
       String deviceId, List<String> keys, int startTime, int endTime) async {
     final url =
         '$thingsBoardApiEndpoint/api/plugins/telemetry/DEVICE/$deviceId/values/timeseries?keys=${keys.join(',')}&startTs=$startTime&endTs=$endTime';
-    if (kDebugMode) {
-      print("url: ${Uri.parse(url)}");
-      print("jwt token: ${tbClient.getJwtToken()}");
-    }
     final response = await http.get(
       Uri.parse(url),
       headers: {
         'X-Authorization': 'Bearer ${tbClient.getJwtToken()}',
       },
     );
-    if (kDebugMode) {
-      print(response.body);
-    }
-
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body) as Map<String, dynamic>;
-      if (kDebugMode) {
-        print('data $data');
-      }
       return data.map((key, valueList) {
         return MapEntry(
           key,

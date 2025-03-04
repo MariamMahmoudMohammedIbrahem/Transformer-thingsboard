@@ -1,6 +1,4 @@
-
-
-import '../commons.dart';
+import '../../commons.dart';
 
 class CustomerUsers extends StatefulWidget {
   final String customerId;
@@ -35,9 +33,6 @@ class CustomerUsersState extends State<CustomerUsers> {
       });
     } catch (e) {
       setState(() => isLoading = false);
-      if (kDebugMode) {
-        print('Error fetching customer users: $e');
-      }
     }
   }
 

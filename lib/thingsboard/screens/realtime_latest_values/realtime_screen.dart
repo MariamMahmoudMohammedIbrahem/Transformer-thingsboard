@@ -1,6 +1,4 @@
 
-import 'package:thingsboard_client/thingsboard_client.dart';
-
 import '../../commons.dart';
 part 'realtime_controller.dart';
 
@@ -24,8 +22,6 @@ class _RealtimeScreen extends RealtimeController {
 
     return Scaffold(
       appBar: AppBar(
-        // shadowColor: const Color(0xFF305680),
-        // elevation: 3,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(20),
@@ -38,32 +34,10 @@ class _RealtimeScreen extends RealtimeController {
       ),
       body: Column(
         children: [
-          /*SizedBox(
-            child: StreamBuilder<Map<String, dynamic>>(
-                stream: fetchLatestTelemetryStream(),
-                builder: (context, snapshot) {
-                  print(snapshot);
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: SizedBox.shrink());
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const Center(child: Text('No data available'));
-            }
-
-                  // final telemetryData = snapshot.data!;
-                  // return Container(
-                  //   padding: const EdgeInsets.all(16.0),
-                  //   child: Text('Telemetry Data: $telemetryData'),
-                  // );
-                  return kEmptyWidget;
-                }
-            ),
-          ),*/
           Expanded(
             child: ListView(
                 children: [
-                  const SizedBox(height: 10,),
+                  height10,
                   GridView.count(
                     crossAxisCount: 3,
                     physics: const NeverScrollableScrollPhysics(),
@@ -182,7 +156,7 @@ class _RealtimeScreen extends RealtimeController {
                                   latestValues[keys[8]] ==
                                       'h'
                                   ? Colors.red.shade900
-                                  : const Color(0xFF305680),
+                                  : MyColors.blueDark,
                               width: latestValues[keys[8]] ==
                                   'l' ||
                                   latestValues[keys[8]] ==
@@ -201,11 +175,11 @@ class _RealtimeScreen extends RealtimeController {
                                 'Oil Level',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xFF305680),
+                                  color: MyColors.blueDark,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
-                              const SizedBox(height: 8.0),
+                              height8,
                               if (latestValues[keys[8]] !=
                                   null)
                                 Row(
@@ -227,10 +201,6 @@ class _RealtimeScreen extends RealtimeController {
                                       ),
                                     AutoSizeText(
                                       latestValues[keys[8]] == 'i'?'normal':latestValues[keys[8]] == 'l'?'low':'high',
-                                      /*style: TextStyle(
-                                        // fontSize: 24,
-                                        color: Colors.grey.shade800,
-                                      ),*/
                                       minFontSize: 16,
                                       maxFontSize: 24,
                                     ),
@@ -259,7 +229,7 @@ class _RealtimeScreen extends RealtimeController {
                                   latestValues[keys[9]] ==
                                       'h'
                                   ? Colors.red.shade900
-                                  : const Color(0xFF305680),
+                                  : MyColors.blueDark,
                               width: latestValues[keys[9]] ==
                                   'l' ||
                                   latestValues[keys[9]] ==
@@ -279,11 +249,11 @@ class _RealtimeScreen extends RealtimeController {
                                 'Bokhlez\n Sensor',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xFF305680),
+                                  color: MyColors.blueDark,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
-                              const SizedBox(height: 8.0),
+                              height8,
                               if (latestValues[keys[9]] !=
                                   null)
                                 Row(
@@ -306,10 +276,6 @@ class _RealtimeScreen extends RealtimeController {
                                       ),
                                     AutoSizeText(
                                       latestValues[keys[9]] == 'i'?'normal':latestValues[keys[9]] == 'l'?'low':'high',
-                                      /*style: TextStyle(
-                                        // fontSize: 24,
-                                        color: Colors.grey.shade800,
-                                      ),*/
                                       minFontSize: 16,
                                       maxFontSize: 24,
                                     ),
@@ -354,7 +320,7 @@ class DataCard extends StatelessWidget {
         side: BorderSide(
           color: isAlert == 'h' || isAlert == 'l'
               ? Colors.red.shade900
-              : const Color(0xFF305680),
+              : MyColors.blueDark,
           width: isAlert == 'h' || isAlert == 'l' ? 1.0 : 0.0,
         ),
         borderRadius: BorderRadius.circular(30.0),
@@ -370,11 +336,11 @@ class DataCard extends StatelessWidget {
               title,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF305680),
+                color: MyColors.blueDark,
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 8.0),
+            height8,
             if (value != 'null')
               Row(
                 mainAxisAlignment: isAlert == 'h' || isAlert == 'l'
@@ -393,22 +359,17 @@ class DataCard extends StatelessWidget {
                     ),
                   AutoSizeText(
                     value,
-                    /*style: TextStyle(
-                      // fontSize: 24,
-                      color: Colors.grey.shade800,
-                    ),*/
                     minFontSize: 16,
                     maxFontSize: 24,
                   ),
-                  const SizedBox(
-                    width: 2,
+                  width2,
+                  AutoSizeText(
+                    unit,
+                    style: const TextStyle(
+                      color: Colors.grey,
+                    ),
+                    minFontSize: 12,
                   ),
-                  AutoSizeText(unit,
-                      style: const TextStyle(
-                        // fontSize: 16,
-                        color: Colors.grey,
-                      ),
-                      minFontSize: 12),
                 ],
               ),
           ],

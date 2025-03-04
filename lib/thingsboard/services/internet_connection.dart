@@ -1,31 +1,5 @@
 import '../commons.dart';
 
-/*class InternetConnectionService {
-  final Connectivity _connectivity = Connectivity();
-  final StreamController<bool> _connectionChangeController =
-  StreamController<bool>.broadcast();
-
-  InternetConnectionService() {
-    _connectivity.onConnectivityChanged.listen((results) {
-      // Pass the first result in the list to _checkConnectionStatus
-      if (results.isNotEmpty) {
-        _checkConnectionStatus(results.first);
-      }
-    });
-  }
-
-  Stream<bool> get connectionChange => _connectionChangeController.stream;
-
-  void _checkConnectionStatus(ConnectivityResult result) {
-    final bool isConnected = result != ConnectivityResult.none;
-    _connectionChangeController.add(isConnected);
-  }
-
-  void dispose() {
-    _connectionChangeController.close();
-  }
-}*/
-
 class InternetConnectionService extends ChangeNotifier {
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<List<ConnectivityResult>> _connectivitySubscription;

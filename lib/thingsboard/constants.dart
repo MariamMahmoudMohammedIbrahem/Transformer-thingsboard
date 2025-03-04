@@ -1,27 +1,20 @@
 
 import 'commons.dart';
 
-// String thingsBoardApiEndpoint = 'http://192.168.0.112:8081';
 late String thingsBoardApiEndpoint;
 
 var tbClient = ThingsboardClient(thingsBoardApiEndpoint);
 
 Map<String, Map<int, dynamic>> telemetryData = {};
 
-
 late PageData<EntityData> devices;
+
 var token = '';
-
-
-///*main.dart**
-// const String email = 'doaamahmed678@gmail.com';
-// const String password = 'EoipEgypt';
-// Filters and Queries
-
 
 ///*sign_in_screen.dart**
 
 late String emailUser;
+
 late String password;
 
 
